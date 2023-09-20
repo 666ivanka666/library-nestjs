@@ -1,0 +1,51 @@
+Homework Assignment: Build a Library API using NestJS
+Overview
+Your task for this assignment is to develop a Library API using NestJS. This API should allow users to create, read, update, and delete books. Books will be stored in-memory for simplicity. You will also implement data validation to ensure the incoming request parameters and body data are of the proper type.
+
+Features
+The application should support the following operations:
+
+Create a new book (POST /books)
+Select all books (GET /books)
+Select a book by ID (GET /books/:id)
+Update a book by ID (PUT /books/:id)
+Delete a book by ID (DELETE /books/:id)
+Book Object
+Each book should have the following attributes:
+
+id: A unique identifier for each book. Use the uuid npm package to automatically generate this value.
+title: String, title of the book.
+dateOfPublished: Date, the date when the book was published.
+description: String, a brief description of the book.
+author: String, the name of the author.
+{
+  id: string; // UUID
+  title: string;
+  dateOfPublished: Date;
+  description: string;
+  author: string;
+}
+Technical Requirements
+Use NestJS to create the API
+Store books in an array in the application's memory
+Use the uuid npm library for generating unique IDs for each book
+Use class-validator library to validate incoming data
+Validation
+Use the class-validator library to enforce these validations:
+
+title should be a non-empty string
+dateOfPublished should be a valid date
+description should be a non-empty string
+author should be a non-empty string
+Steps to Complete
+Initialize a new NestJS project
+Install required npm packages (uuid, class-validator)
+Create a Book model with attributes and validation
+Implement the book operations (CRUD)
+Test all the API endpoints to ensure they are working as expected
+Grading Criteria
+Correct implementation of CRUD operations (40%)
+Proper usage of uuid for generating unique IDs (10%)
+Implementation of in-memory storage (20%)
+Correct usage of class-validator for data validation (20%)
+Code organization and readability (10%)
