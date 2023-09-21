@@ -1,18 +1,27 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { LibraryService } from './library.service';
+import { IdDto, LibraryDto } from './dto';
 
 @Controller('library')
 export class LibraryController {
   constructor(private readonly libraryService: LibraryService) {}
 
   @Post()
-  addLibrary(
-    @Body('title') libraryTitle: string,
-    @Body('dateOfPublished') libraryDate: string,
-    @Body('description') libraryDesc: string,
-    @Body('author') libraryAuth: string,
-  ): any {
-    const generatedId = this.libraryService.insertLibrary(libraryTitle, libraryDate, libraryDesc, libraryAuth);
+  addLibrary(@Body() body: LibraryDto): any {
+    const generatedId = this.libraryService.insertLibrary(
+      body.title,
+      body.dateOfPublished,
+      body.description,
+      body.author,
+    );
     return { id: generatedId };
   }
 
@@ -22,25 +31,26 @@ export class LibraryController {
   }
 
   @Get(':id')
-  getLibraryById(@Param('id') libraryId: string) {
-    return this.libraryService.getSingleLibrary(libraryId);
+  getLibraryById(@Param() params: IdDto) {
+    return this.libraryService.getSingleLibrary(params.id);
   }
 
   @Put(':id')
-  updateLibrary(
-    @Param('id') libraryId: string,
-    @Body('title') libraryTitle: string,
-    @Body('dateOfPublished') libraryDate: string,
-    @Body('description') libraryDesc: string,
-    @Body('author') libraryAuth: string,
-  ) {
-    this.libraryService.updateLibrary(libraryId, libraryTitle, libraryDate, libraryDesc, libraryAuth);
+  updateLibrary(@Param() params: IdDto, @Body() body: LibraryDto) {
+    console.log(params);
+    this.libraryService.updateLibrary(
+      params.id,
+      body.title,
+      body.dateOfPublished,
+      body.description,
+      body.author,
+    );
     return null;
   }
 
   @Delete(':id')
-  deleteLibraryById(@Param('id') libraryId: string) {
-    this.libraryService.deleteLibrary(libraryId);
+  deleteLibraryById(@Param() params: IdDto) {
+    this.libraryService.deleteLibrary(params.id);
     return null;
   }
 }
